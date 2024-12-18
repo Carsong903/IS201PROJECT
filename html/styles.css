@@ -1,0 +1,70 @@
+/* General Reset */
+body, h1, h2, h3, h4, h5, h6, p, a, div {
+    margin: 1;
+    padding: 2;
+    box-sizing: border-box;
+}
+
+/* Style for the common header */
+.common.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #4170c8; /* Dodgers blue */
+    color: white;
+    padding: 10px 20px;
+}
+
+.common.header img {
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.common.header .subheader a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 8px;
+}
+
+.common.header .subheader a:hover {
+    text-decoration: underline;
+}
+
+/* Position headers to the top right */
+.subheader {
+    margin-left: auto;
+}
+
+/* Style for list headings in the main body */
+.dodgersListHeading {
+    color: #000000; /* Dodgers red */
+    font-weight: bold;
+    margin: 15px 0;
+    font-size: 1.2em;
+}
+
+/* Styling for right menu */
+.champs {
+    top: 150px;
+    right: 20px;
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.champs h4 {
+    color: #003087;
+    margin-bottom: 10px;
+}
+
+/* Footer styling */
+.common.footer {
+    text-align: center;
+    background-color: #003087;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+
+}

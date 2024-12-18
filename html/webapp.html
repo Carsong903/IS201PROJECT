@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        .game-container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            margin: 40px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="number"], input[type="range"], button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4facfe;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background-color: #00c3ff;
+        }
+        .feedback {
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .hidden {
+            display: none;
+        }
+        .play-again {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Number Guessing Game</h1>
+    <div class="game-container">
+        <label for="range">Select a range:</label>
+        <input type="range" id="range" min="10" max="100" value="50" step="10" oninput="updateRangeLabel()">
+        <p>Range: 1 to <span id="range-value">50</span></p>
+
+        <label for="guess">Enter your guess:</label>
+        <input type="number" id="guess" min="1" max="50" placeholder="Enter a number">
+
+        <button onclick="checkGuess()">Submit Guess</button>
+        <p class="feedback hidden" id="feedback"></p>
+
+        <button class="play-again hidden" onclick="resetGame()">Play Again</button>
+    </div>
+
+    <script>
+        let maxNumber = 50;
+        let randomNumber = generateRandomNumber(maxNumber);
+        let attempts = 0;
+
+        function generateRandomNumber(max) {
+            return Math.floor(Math.random() * max) + 1;
+        }
+
+        function updateRangeLabel() {
+            const range = document.getElementById("range");
+            const rangeValue = document.getElementById("range-value");
+            maxNumber = parseInt(range.value);
+            rangeValue.textContent = maxNumber;
+            document.getElementById("guess").max = maxNumber;
+            resetGame();
+        }
+
+        function checkGuess() {
+            const guessInput = document.getElementById("guess");
+            const feedback = document.getElementById("feedback");
+            const playAgainButton = document.querySelector(".play-again");
+
+            const userGuess = parseInt(guessInput.value);
+            attempts++;
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > maxNumber) {
+                feedback.textContent = `Please enter a valid number between 1 and ${maxNumber}.`;
+                feedback.style.color = "red";
+                feedback.classList.remove("hidden");
+                return;
+            }
+
+            if (userGuess === randomNumber) {
+                feedback.textContent = `🎉 Correct! You guessed the number in ${attempts} attempts.`;
+                feedback.style.color = "green";
+                feedback.classList.remove("hidden");
+                playAgainButton.classList.remove("hidden");
+            } else if (userGuess < randomNumber) {
+                feedback.textContent = "Too low! Try again.";
+                feedback.style.color = "orange";
+                feedback.classList.remove("hidden");
+            } else {
+                feedback.textContent = "Too high! Try again.";
+                feedback.style.color = "orange";
+                feedback.classList.remove("hidden");
+            }
+        }
+
+        function resetGame() {
+            randomNumber = generateRandomNumber(maxNumber);
+            attempts = 0;
+            document.getElementById("guess").value = "";
+            document.getElementById("feedback").classList.add("hidden");
+            document.querySelector(".play-again").classList.add("hidden");
+        }
+    </script>
+</body>
+</html>
